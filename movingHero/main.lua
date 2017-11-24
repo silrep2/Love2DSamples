@@ -1,5 +1,9 @@
+local heroX = 0
+local heroY = 0
+local faceRight = true
+
 function love.load()
-    animation = newAnimation(love.graphics.newImage("/home/zhoujy/private/Love2DSamples/resources/oldHero.png"), 16, 18, 1)
+    animation = newAnimation(love.graphics.newImage("oldHero.png"), 16, 18, 1)
 end
  
 function love.update(dt)
@@ -8,15 +12,24 @@ function love.update(dt)
         animation.currentTime = animation.currentTime - animation.duration
     end
 
-    if love.keyboard.isDown("w") then
-
+    if love.keyboard.isDown('a', "left") then
+    	heroX = heroX - 1
+    end
+    if love.keyboard.isDown('d', "right") then
+    	heroX = heroX + 1
+    end
+    if love.keyboard.isDown('w', "up") then
+    	heroY = heroY - 1
+    end
+    if love.keyboard.isDown('s', "down") then
+    	heroY = heroY + 1
     end
 end
  
 function love.draw()
     local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
     -- X, Y, direction, scale
-    love.graphics.draw(animation.spriteSheet, animation.quads[spriteNum], 0, 0, 0, 10)
+    love.graphics.draw(animation.spriteSheet, animation.quads[spriteNum], heroX, heroY, 0, 10)
 end
  
 function newAnimation(image, width, height, duration)
