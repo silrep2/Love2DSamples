@@ -1,6 +1,7 @@
 local heroX = 0
 local heroY = 0
 local faceRight = true
+local bump = require 'bump'
 
 function love.load()
     animation = newAnimation(love.graphics.newImage("oldHero.png"), 16, 18, 1)
