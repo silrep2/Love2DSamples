@@ -1,5 +1,4 @@
-
-package.path = "../bump.lua/bump.lua"
+package.path = package.path .. ";./bump/bump.lua;../bump/bump.lua;"
 local bump       = require 'bump'
 
 
