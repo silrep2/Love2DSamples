@@ -8,7 +8,7 @@ function SolidBox:create(x, y, w, h, r, g, b, world)
         local solidBox = {}
         solidBox.x, solidBox.y, solidBox.w, solidBox.h = x, y, w, h
         solidBox.r, solidBox.g, solidBox.b = r, g, b
-        world:add(solidBox, x, y, w,h)
+        world:add(solidBox, x, y, w, h)
         setmetatable(solidBox, SolidBox)
         return solidBox
 end
