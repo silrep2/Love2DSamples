@@ -141,6 +141,7 @@ function love.load()
   addBlock(0,      32,      32, 600-32*2)
   addBlock(800-32, 32,      32, 600-32*2)
   addBlock(0,      600-32, 800, 32)
+  math.randomseed(os.time())
 
   for i=1,30 do
     addBlock( math.random(100, 600),
