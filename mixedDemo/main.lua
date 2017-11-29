@@ -6,21 +6,32 @@ local image, animation
 local world = bump.newWorld()
 function love.load()
 
-   hero = Hero:create('myHero', world)
-   print(hero.w)
-  image = love.graphics.newImage('asset/characters.png')
-  local g = anim8.newGrid(32, 32, image:getWidth(), image:getHeight())
-  animation = anim8.newAnimation(g('1-4',1), 0.1)
+    hero = Hero:create('myHero', 0, world)
+    hero:setPosition(100, 100) 
+    hero2 = Hero:create('myHero2', 1, world)
+    hero2.speed = 50
+    hero2:setPosition(100, 200) 
 end
 
 function love.update(dt)
-  animation:update(dt)
+    hero:update(dt)
+    hero2:update(dt)
 end
 
 function love.draw()
-  animation:draw(image, 100, 200)
+  hero:draw()
+  hero2:draw()
+  drawDebug()
 end
 
+
+function drawDebug()
+    local statistics = ("x: %d, y: %d"):format(hero.x, hero.y)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.printf(statistics, 0, 530, 790, 'right')
+    statistics = ("x2: %d, y2: %d"):format(hero2.x, hero2.y)
+    love.graphics.printf(statistics, 0, 580, 790, 'right')
+end
 function love.keypressed(k)
     if(k == 'escape') then
         love.event.quit()
