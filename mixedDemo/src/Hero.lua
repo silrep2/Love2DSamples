@@ -10,8 +10,8 @@ function Hero:create(name, type, world)
     hero.speedX =100
     hero.speedY = 0
     hero.x = 400
-    hero.gravity  = 100
-    hero.jumpSpeed = 100
+    hero.gravity  = 200
+    hero.jumpSpeed = -250
     local g = anim8.newGrid(32, 32, hero.image:getWidth(), hero.image:getHeight(), 0, type*32)
     local walk = anim8.newAnimation(g('1-4', 1),  0.1)
     local idle = anim8.newAnimation(g(1, 1, 3, 1),  0.1)
@@ -37,12 +37,14 @@ function Hero:update(dt)
     end
     
     if (love.keyboard.isDown("space") and self.isGrounded) then
-        self.speedY = -self.jumpSpeed
-        dy = self.speedY * dt
-        self.speedY = self.speedY + self.gravity * dt
+        print("jump")
+        self.speedY = self.jumpSpeed
+       
     end
-
-    dy = hero.gravity * dt
+   
+    self.speedY = self.speedY + self.gravity * dt 
+    dy = self.speedY * dt
+    
     Character.update(self, dt, dx, dy)
 end
 

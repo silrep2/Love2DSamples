@@ -7,9 +7,10 @@ function SolidBox:create(x, y, w, h, world)
         solidBox.x, solidBox.y, solidBox.w, solidBox.h = x, y, w, h
         solidBox.r, solidBox.g, solidBox.b = 0, 255, 0
         solidBox.groudTrigger  = {isGround = true}
+        solidBox.isWall = true
         -- print(solidBox.groudTrigger)
-        world:add(solidBox.groudTrigger, x, y, w, groundHeight)
-        world:add(solidBox, x + groundHeight, y, w, h - groundHeight)
+        world:add(solidBox.groudTrigger, x+1, y, w - 2, groundHeight)
+        world:add(solidBox, x, y + groundHeight, w, h - groundHeight)
         setmetatable(solidBox, SolidBox)
         return solidBox
 end

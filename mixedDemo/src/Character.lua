@@ -33,6 +33,10 @@ function Character:update(dt, dx, dy)
             local col = cols[i]
             if(col.other.isGround)then
                 self.isGrounded = true
+                self.speedY = 0
+                -- if head wall 
+            elseif(col.other.isWall and (col.other.y < self.y))then
+                self.speedY = 0
             end
         end
     end
