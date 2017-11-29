@@ -10,6 +10,7 @@ function Character:create(name, path, w, h, world)
     c.state = 'idle'
     c.name = name
     c.world = world
+    c.isGrounded = false
     world:add(c, c.x, c.y, c.w, c.h)
     setmetatable(c, Character)
     return c
@@ -27,10 +28,13 @@ function Character:update(dt, dx, dy)
     if dx ~= 0 or dy ~= 0 then
         local cols
         self.x, self.y, cols, cols_len = self.world:move(self, self.x + dx, self.y + dy)
-        -- for i=1, cols_len do
-        --     local col = cols[i]
-        --     -- print(col.other)
-        -- end
+        self.isGrounded =false
+        for i=1, cols_len do
+            local col = cols[i]
+            if(col.other.isGround)then
+                self.isGrounded = true
+            end
+        end
     end
     self.anim[self.state]:update(dt) 
 end
