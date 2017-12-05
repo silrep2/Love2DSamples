@@ -12,7 +12,7 @@ sudo apt-get install love
 
 ```bash
 git submodule update --init --recursive
-love ./movingHero
+love ./mixedDemo
 ```
 
 ## Sample Intro

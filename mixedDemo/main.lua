@@ -6,6 +6,11 @@ local Hero = require '/src/Hero'
 local image, animation
 local world = bump.newWorld()
 local toDrawList = {}
+debug = true
+
+function pointAt( ... )
+  -- body
+end
 function love.load()
 
     hero = Hero:create('myHero', 0, world)
@@ -31,7 +36,10 @@ function love.draw()
   for i=1,#toDrawList do
       toDrawList[i]:draw()
   end
-  drawDebug()
+  if(debug) then
+      drawDebug()
+  end
+
 end
 
 
@@ -45,6 +53,9 @@ function drawDebug()
 end
 function love.keypressed(k)
     if(k == 'escape') then
-        love.event.quit()
+      love.event.quit()
+    end
+    if(k == 'tab') then
+      debug = not debug
     end
 end

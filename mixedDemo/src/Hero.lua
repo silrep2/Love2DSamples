@@ -10,8 +10,8 @@ function Hero:create(name, type, world)
     hero.speedX =100
     hero.speedY = 0
     hero.x = 400
-    hero.gravity  = 200
-    hero.jumpSpeed = -250
+    hero.gravity  = 1400
+    hero.jumpSpeed = -650
     local g = anim8.newGrid(32, 32, hero.image:getWidth(), hero.image:getHeight(), 0, type*32)
     local walk = anim8.newAnimation(g('1-4', 1),  0.1)
     local idle = anim8.newAnimation(g(1, 1, 3, 1),  0.1)

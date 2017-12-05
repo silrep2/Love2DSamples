@@ -31,11 +31,13 @@ function Character:update(dt, dx, dy)
         self.isGrounded =false
         for i=1, cols_len do
             local col = cols[i]
-            if(col.other.isGround)then
+
+            -- if touch ground and between ground's edges 
+            if(col.other.isGround and (col.other.x < self.x + self.w) and (self.x  < col.other.x + col.other.w) )then
                 self.isGrounded = true
                 self.speedY = 0
-                -- if head wall 
-            elseif(col.other.isWall and (col.other.y < self.y))then
+                -- if touch wall  and between wall's edges
+            elseif(col.other.isWall and (col.other.y < self.y) and (col.other.x < self.x + self.w) and (self.x < col.other.x + col.other.w))then
                 self.speedY = 0
             end
         end
@@ -45,6 +47,11 @@ end
 
 function Character:draw()
     self.anim[self.state]:draw(self.image, self.x, self.y )
+    if(debug)then
+        love.graphics.setColor(0,0,255)
+        love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+        love.graphics.setColor(255,255,255)
+    end
 end
 
 function Character:addAnimation(name, animation)
