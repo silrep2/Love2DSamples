@@ -8,7 +8,7 @@ debug = true
 pause = false
 lose = false
 local world = bump.newWorld()
-local ball = Ball:create(100,100, 40, world)    
+local ball = Ball:create(100,100, 16, world)    
 local blocks = {}
 local plat = Plat:create(300, 600, world)
 screenW, screenH = 1200, 800
@@ -18,13 +18,25 @@ success = love.window.setMode(screenW, screenH, {borderless=true})
 
 
 function love.load()
-    -- load walls
-    blocks[0] = Block:create(0, -5, screenW, 5, world)
-    blocks[1] = Block:create(-5, 0, 5, screenH, world)
-    blocks[2] = Block:create(screenW, 0, 5, screenH, world)
-    blocks[3] = Block:create(0, screenH, screenW, 5, world)
+    -- load walls 
+    -- 0: up 
+    -- 1: left
+    -- 2: right
+    blocks[0] = Block:create(0, -10, screenW, 5, world) 
+    blocks[1] = Block:create(-10, 0, 5, screenH, world)
+    blocks[2] = Block:create(screenW + 10, 0, 5, screenH, world)
+    blocks[3] = Block:create(0, screenH + 10, screenW, 5, world)
     blocks[3].isBottom = true
-    blocks[#blocks + 1] = Block:create(400, 0, 50, 200, world)
+
+    -- load 
+    local blockSize = 32
+
+    for i = 1, 2 do
+        for j = 1, 5 do 
+            blocks[#blocks + 1] = Block:create(200 + j * (blockSize), 100 + i * blockSize, blockSize, blockSize, world)
+            blocks[#blocks].crispy = true
+        end
+    end
     ball:putOnPlat(plat)
 end
 

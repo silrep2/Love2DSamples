@@ -12,8 +12,8 @@ end
 
 function Ball:create(x, y, r, world)
         local ball = {}
-        ball.x, ball.y, ball.w, ball.h = x, y, w, h
-        ball.rad = 32
+        ball.x, ball.y = x, y
+        ball.rad = r
         ball.speed = 400
         ball.directionX = 0
         ball.directionY = 0
@@ -50,6 +50,10 @@ function Ball:update(dt)
                 if other.isBottom then 
                     lose = true
                 else
+                    if other.crispy then
+                        other:crash()
+                        print(1)
+                    end
                     if(cols[i].normal.x ~= 0) then
                         self.directionX = self.directionX  * -1
                     end
