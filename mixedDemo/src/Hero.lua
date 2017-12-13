@@ -23,7 +23,6 @@ function Hero:create(name, type, world)
 end
 
 function Hero:draw()
-
     Character.draw(self)
 end
 function Hero:update(dt)
@@ -39,9 +38,7 @@ function Hero:update(dt)
     end
     
     if (love.keyboard.isDown("space") and self.isGrounded) then
-        print("jump")
         self.speedY = self.jumpSpeed
-       
     end
    
     self.speedY = self.speedY + self.gravity * dt 
