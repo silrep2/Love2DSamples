@@ -17,6 +17,6 @@ love ./mixedDemo
 
 ## Sample Intro
 
- - mixedDemo (easy)
+### mixedDemo (easy)
 
 a moving hero, support moving and jumping.
