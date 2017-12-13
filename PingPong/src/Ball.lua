@@ -50,12 +50,18 @@ function Ball:update(dt)
                 if other.isBottom then 
                     lose = true
                 else
-                    self.directionX = self.directionX  * -1
-                    self.directionY = self.directionY  * -1
+                    if(cols[i].normal.x ~= 0) then
+                        self.directionX = self.directionX  * -1
+                    end
+                    if(cols[i].normal.y ~= 0) then
+                        self.directionY = self.directionY  * -1
+                    end
                 end
             elseif other.isPlat then
                 self.directionX = self.directionX  * -1
                 self.directionY = self.directionY  * -1
+                local dx = (self.x  + self.rad) - (other.x + other.w / 2)
+                self:setDirection(dx/120, self.directionY)
             end
         end
     else
@@ -65,11 +71,14 @@ function Ball:update(dt)
             self.directionX = 0
             self.directionY = -1
         else
-            -- self:putOnPlat(self.onWhichPlat)
+            self:putOnPlat(self.onWhichPlat)
         end
     end
 end
-
+function Ball:setDirection(x, y)
+    self.directionX = x / math.sqrt(x*x+y*y)
+    self.directionY = y / math.sqrt(x*x+y*y)
+end
 function Ball:draw()
     love.graphics.setColor(self.r, self.g, self.b)
     love.graphics.circle("fill", self.x + self.rad, self.y + self.rad, self.rad, 128)
