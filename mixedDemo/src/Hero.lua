@@ -31,9 +31,11 @@ function Hero:update(dt)
     local dy = 0
     if love.keyboard.isDown('a', "left") then
         dx =  -self.speedX * dt
+        self.facingLeft = true
     end
     if love.keyboard.isDown('d', "right") then
         dx = self.speedX * dt
+        self.facingLeft = false
     end
     
     if (love.keyboard.isDown("space") and self.isGrounded) then

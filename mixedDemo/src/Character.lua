@@ -11,6 +11,7 @@ function Character:create(name, path, w, h, world)
     c.name = name
     c.world = world
     c.isGrounded = false
+    c.facingLeft = false
     world:add(c, c.x, c.y, c.w, c.h)
     setmetatable(c, Character)
     return c
@@ -46,7 +47,11 @@ function Character:update(dt, dx, dy)
 end
 
 function Character:draw()
-    self.anim[self.state]:draw(self.image, self.x, self.y )
+    if(self.facingLeft)then
+        self.anim[self.state]:draw(self.image, self.x, self.y, 0 ,  -1, 1, self.w)
+    else
+        self.anim[self.state]:draw(self.image, self.x, self.y, 0 ,  1, 1, 0)
+    end
     if(debug)then
         love.graphics.setColor(0,0,255)
         love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
