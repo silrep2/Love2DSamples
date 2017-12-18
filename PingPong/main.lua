@@ -11,6 +11,7 @@ local world = bump.newWorld()
 local ball = Ball:create(100,100, 16, world)    
 local blocks = {}
 local plat = Plat:create(300, 600, world)
+local map
 screenW, screenH = 1200, 800
 
 -- init
@@ -29,12 +30,17 @@ function love.load()
     blocks[3].isBottom = true
 
     -- load 
+    map = loadMap(1)
+    
     local blockSize = 32
-
-    for i = 1, 2 do
-        for j = 1, 5 do 
-            blocks[#blocks + 1] = Block:create(200 + j * (blockSize), 100 + i * blockSize, blockSize, blockSize, world)
-            blocks[#blocks].crispy = true
+    local startX = (screenW - (blockSize *  #map[1]))/2
+    local startY = 100
+    for i = 1, #map do
+        for j = 1,  #map[1] do 
+            if (map[i][j] ~= 0) then
+                blocks[#blocks + 1] = Block:create(startX + j * (blockSize), startY + i * blockSize, blockSize, blockSize, world)
+                blocks[#blocks].crispy = true
+            end
         end
     end
     ball:putOnPlat(plat)
@@ -70,4 +76,20 @@ function love.keypressed(k)
     if(k == 'p') then
         pause = not pause
     end
+end
+
+function loadMap(num)
+    local file = io.open("./maps/" .. num, r)
+    io.input(file)
+    local lineID = 0
+    local map = {}
+    for line in file:lines()do
+        lineID = lineID + 1
+        map[lineID] = {}
+        for i = 1, string.len(line) do
+            -- print(string.byte(line, i) - 48)
+            map[lineID][i] = string.byte(line, i) - 48
+        end
+    end
+    return map
 end

@@ -14,7 +14,7 @@ function Ball:create(x, y, r, world)
         local ball = {}
         ball.x, ball.y = x, y
         ball.rad = r
-        ball.speed = 400
+        ball.speed = 700
         ball.directionX = 0
         ball.directionY = 0
         ball.r, ball.g, ball.b = 255, 255, 0
@@ -31,12 +31,12 @@ function Ball:setColor( r,g,b )
 end
 
 function Ball:putOnPlat(plat)
-    self.world:remove(self)
+    -- self.world:remove(self)
     self.escaped = false
     self.x = plat.x + plat.w / 2 - self.rad
     self.y = plat.y  - self.rad*2
     self.onWhichPlat = plat
-    self.world:add(self, self.x, self.y, self.rad *2 , self.rad * 2)
+    self.world:update(self, self.x, self.y, self.rad *2 , self.rad * 2)
 end
 
 function Ball:update(dt)

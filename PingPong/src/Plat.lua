@@ -7,7 +7,7 @@ local kPlatHeight  = 20
 function Plat:create(x, y, world)
         local plat = {}
         plat.x, plat.y, plat.w, plat.h = x, y, kPlatWidth, kPlatHeight
-        plat.speed = 200
+        plat.speed = 400
         plat.r, plat.g, plat.b = 0, 0, 255
         plat.isPlat = true
         plat.world = world
@@ -29,6 +29,7 @@ function Plat:update(dt)
     if love.keyboard.isDown('d', "right") then
         dx = self.speed * dt
     end
+    -- self.world:update(self, self.x + dx, self.y + dy)
     local cols, len 
     self.x, self.y, cols, len = self.world:move(self, self.x + dx, self.y + dy)
     for i=1,len do
